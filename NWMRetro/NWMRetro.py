@@ -20,8 +20,10 @@ def get_streamflow_by_reach(reach, start_time=None, end_time=None, make_csv=Fals
     ser = ds_zarr.sel(feature_id=reach, time=timerange).streamflow.to_pandas().rename('streamflow')
   else:
     ser = ds_zarr.sel(feature_id=reach).streamflow.to_pandas().rename('streamflow')
-  if make_csv:
-    ser.to_csv(f'NWM{reach}.csv')
+  if make_csv is not None and make_csv is not False:
+    if make_csv is True:
+      make_csv = f'NWM{reach}.csv'
+    ser.to_csv(make_csv)
   return ser
 
 ## End bit to copy
