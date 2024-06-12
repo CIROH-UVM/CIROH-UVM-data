@@ -1,8 +1,7 @@
-from NWMRetro.NWMRetro import get_streamflow_by_reach
+import time
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
-import time
+from NWMRetro.NWMRetro import get_streamflow_by_reach
 
 # Set up query for Otter Creek
 reach = 22221703
@@ -29,4 +28,3 @@ secax = ax.secondary_yaxis('right', functions=(cms2cfs, cfs2cms))
 secax.set_ylabel('Discharge (cfs)')
 fig.tight_layout()
 fig.savefig(f'NWM{reach}.png', dpi=300)
-plt.show()
