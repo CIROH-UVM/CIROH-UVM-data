@@ -1,0 +1,11 @@
+name: NWMRetro
+dependencies:
+  - numpy
+  - pandas
+  - matplotlib
+  - xarray
+  - dask
+  - netCDF4
+  - bottleneck
+  - zarr
+  - s3fs
