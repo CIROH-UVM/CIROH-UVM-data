@@ -26,6 +26,20 @@ def get_streamflow_by_reach(reach, start_time=None, end_time=None, make_csv=Fals
     ser.to_csv(make_csv)
   return ser
 
+def get_series_by_reach(reach, field='streamflow', start_time=None, end_time=None, make_csv=False):
+  ## Full range of data is 1979-02-01 01:00 through 2020-12-31 23:00
+  ## Not sure of the timezone used in the AWS bucket
+  timerange = slice(start_time, end_time)
+  if start_time != None:
+    ser = ds_zarr.sel(feature_id=reach, time=timerange)[field].to_pandas().rename(field)
+  else:
+    ser = ds_zarr.sel(feature_id=reach)[field].to_pandas().rename(field)
+  if make_csv is not None and make_csv is not False:
+    if make_csv is True:
+      make_csv = f'NWM{reach}.csv'
+    ser.to_csv(make_csv)
+  return ser
+
 ## End bit to copy
 
 ## Below are sample function calls
